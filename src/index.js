@@ -1,13 +1,20 @@
 import { generateMiddlewareProxyTable } from "./utils";
 import "colors";
+import { error } from "console";
 
-function VitePluginProxyMiddleware(opts) {
+async function VitePluginProxyMiddleware(opts) {
   let config;
   let viteProtocol;
   let vitePort;
+  let proxyTableMap;
 
   // mock数据地址接口默认值为 "/dev-mock"
-  const { mockPath = "/dev-mock" } = opts;
+  const { mockPath = "/dev-mock", proxyTable } = opts;
+
+  // 配置proxyTable地址或者指定一个对象
+  if (typeof proxyTable === "string") proxyTableMap = await import(proxyTable);
+  else if (typeof proxyTable === "object") proxyTableMap = proxyTable;
+  else throw error("proxyTable is missing, it can be a path or a proxy object");
 
   return {
     name: "vite-plugin-proxy-middleware",
@@ -32,7 +39,12 @@ function VitePluginProxyMiddleware(opts) {
       }, 1000);
 
       middlewares.use(
-        generateMiddlewareProxyTable({ viteProtocol, vitePort, mockPath })
+        generateMiddlewareProxyTable({
+          viteProtocol,
+          vitePort,
+          mockPath,
+          proxyTableMap,
+        })
       );
     },
   };

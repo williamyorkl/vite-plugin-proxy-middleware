@@ -1,5 +1,13 @@
-import { Plugin } from "vite";
+import { Plugin, ProxyOptions } from "vite";
 
-declare function VitePluginProxyMiddleware(): Plugin;
+type proxyTableType = Record<"string", ProxyOptions> | "string";
+
+interface optsType {
+  mockPath: string;
+  /** proxyTable can be a path string referring to a outside proxyTable  */
+  proxyTable: proxyTableType;
+}
+
+declare function VitePluginProxyMiddleware(opts: optsType): Plugin;
 
 export default VitePluginProxyMiddleware;

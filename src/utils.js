@@ -8,6 +8,7 @@ export function generateMiddlewareProxyTable({
   viteProtocol,
   vitePort,
   mockPath,
+  proxyTable,
 }) {
   // let proxyTable;
   let proxyTableResolved = [];

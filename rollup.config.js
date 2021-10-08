@@ -9,13 +9,13 @@ export default {
     },
   ],
   plugins: [
-    // terser({
-    //   output: {
-    //     ascii_only: true, // 仅输出ascii字符
-    //   },
-    //   compress: {
-    //     pure_funcs: ["console.log"], // 去掉console.log函数
-    //   },
-    // }),
+    terser({
+      output: {
+        ascii_only: true, // 仅输出ascii字符
+      },
+      compress: {
+        pure_funcs: ["console.log"], // 去掉console.log函数
+      },
+    }),
   ],
 };
