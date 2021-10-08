@@ -1,0 +1,29 @@
+{
+  "name": "vite-plugin-proxy-middleware",
+  "version": "1.0.0",
+  "description": "a  vite plugin that solve the conflict problem between turning on vite proxy  and http2, you can use both http2 and proxy at the same time ;-)",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/williamyorkl/vite-plugin-proxy-middleware.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/williamyorkl/vite-plugin-proxy-middleware/issues"
+  },
+  "homepage": "https://github.com/williamyorkl/vite-plugin-proxy-middleware#readme",
+  "dependencies": {
+    "http2-proxy": "^5.0.53",
+    "vite": "^2.6.5"
+  },
+  "devDependencies": {
+    "rollup": "^2.56.2",
+    "rollup-plugin-terser": "^7.0.2",
+    "@types/node": "^16.10.3"
+  },
+  "types": "index.d.ts"
+}
