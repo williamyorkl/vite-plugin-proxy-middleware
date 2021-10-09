@@ -1,3 +1,3 @@
-import VitePluginProxyMiddleware from "../../src/index";
+import VitePluginProxyMiddleware from "../../dist";
 
-// VitePluginProxyMiddleware();
+VitePluginProxyMiddleware();

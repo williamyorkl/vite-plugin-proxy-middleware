@@ -1,6 +1,5 @@
 import { terser } from "rollup-plugin-terser";
 import typescript from "rollup-plugin-typescript2";
-import { resolve } from "path";
 
 export default {
   input: "./src/index.ts",
@@ -10,6 +9,7 @@ export default {
       format: "cjs",
     },
   ],
+  external: ["chalk", "http2-proxy"],
   plugins: [
     terser({
       output: {
@@ -17,7 +17,10 @@ export default {
       },
     }),
     typescript({
-      tsconfig: resolve("tsconfig.json"),
+      typescript: require("typescript"),
+      tsconfigOverride: {
+        compilerOptions: { module: "esnext" },
+      },
     }),
   ],
 };
