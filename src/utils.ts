@@ -1,6 +1,16 @@
 import path from "path";
 import proxy from "http2-proxy";
 import proxyTable from "./proxy-table";
+import { proxyTableType } from "./index";
+
+import { Connect } from "vite";
+
+export interface middleWareOptsType {
+  viteProtocol: number | string;
+  vitePort: number | string;
+  mockPath: string;
+  proxyTableMap: Exclude<proxyTableType, "string">;
+}
 
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
 
@@ -8,8 +18,8 @@ export function generateMiddlewareProxyTable({
   viteProtocol,
   vitePort,
   mockPath,
-  proxyTable,
-}) {
+  proxyTableMap,
+}: middleWareOptsType): Connect.HandleFunction {
   // let proxyTable;
   let proxyTableResolved = [];
 
@@ -20,7 +30,8 @@ export function generateMiddlewareProxyTable({
   // }
 
   // 生成 proxyTableResolved （对应middlewares的格式进行遍历）
-  for (const key in proxyTable) {
+
+  for (const key in proxyTableMap) {
     const proxyPath = key;
     const { target, rewrite } = proxyTable[proxyPath];
 
