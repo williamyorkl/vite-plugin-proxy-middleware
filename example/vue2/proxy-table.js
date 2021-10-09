@@ -6,25 +6,25 @@ const stageProxyTable = {
   dev: {
     "/admin": {
       target: "http://xxx-dev.com/",
-      rewrite: (path: string) => path.replace(/^\/admin/, ""),
+      rewrite: (path) => path.replace(/^\/admin/, ""),
     },
   },
   test: {
     "/admin": {
       target: "http://xxx-test.com/",
-      rewrite: (path: string) => path.replace(/^\/admin/, ""),
+      rewrite: (path) => path.replace(/^\/admin/, ""),
     },
   },
   gray: {
     "/admin": {
       target: "http://xxx-gray.com",
-      rewrite: (path: string) => path.replace(/^\/admin/, ""),
+      rewrite: (path) => path.replace(/^\/admin/, ""),
     },
   },
   prod: {
     "/admin": {
       target: "http://xxx-prod.com",
-      rewrite: (path: string) => path.replace(/^\/admin/, ""),
+      rewrite: (path) => path.replace(/^\/admin/, ""),
     },
   },
 };
@@ -38,16 +38,16 @@ export default {
   "/dev-mock": {
     target: `http://127.0.0.1:${process.env.PORT}/`,
     changeOrigin: true,
-    rewrite: (path: string) => path.replace(/^\/dev-mock/, ""),
+    rewrite: (path) => path.replace(/^\/dev-mock/, ""),
   },
 
   // 3. 后台开发同学电脑
   "/backend001": {
     target: "http://192.168.xx.xx:8000",
-    rewrite: (path: string) => path.replace(/^\/backend001/, ""),
+    rewrite: (path) => path.replace(/^\/backend001/, ""),
   },
   "/backend002": {
     target: "http://192.168.xx.xx:8000",
-    rewrite: (path: string) => path.replace(/^\/backend002/, ""),
+    rewrite: (path) => path.replace(/^\/backend002/, ""),
   },
 };
