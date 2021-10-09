@@ -1,7 +1,9 @@
 import { terser } from "rollup-plugin-terser";
+import typescript from "rollup-plugin-typescript2";
+import { resolve } from "path";
 
 export default {
-  input: "./src/index.js",
+  input: "./src/index.ts",
   output: [
     {
       file: "./dist/index.js",
@@ -13,9 +15,9 @@ export default {
       output: {
         ascii_only: true, // 仅输出ascii字符
       },
-      compress: {
-        pure_funcs: ["console.log"], // 去掉console.log函数
-      },
+    }),
+    typescript({
+      tsconfig: resolve("tsconfig.json"),
     }),
   ],
 };
