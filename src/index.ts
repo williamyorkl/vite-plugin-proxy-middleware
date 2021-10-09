@@ -5,17 +5,17 @@ import { Plugin, ProxyOptions, ResolvedConfig } from "vite";
 import { middleWareOptsType } from "./utils";
 
 interface userOptsType {
-  /** specify a mockPath */
-  mockPath: string;
+  /** if you are using mock, specify a mockPath, default value is '/dev-mock',  */
+  mockPath?: string;
 
-  /** proxyTable can be a path string referring to a outside proxyTable  */
+  /** proxyTable can be a proxyTable.js path string or proxyTable object  */
   proxyTable: proxyTableType;
 
-  /** public host config  */
-  publicHost: string;
+  /** public host config (if you have a host name for your develop environment,such as "xxx-dev.xxx.com", you can set it here, which will be much easier for your to click the link and open the page on browser)  */
+  publicHost?: string;
 }
 
-export type proxyTableType = Record<"string", ProxyOptions> | "string";
+export type proxyTableType = Record<"string", ProxyOptions> | string;
 
 async function VitePluginProxyMiddleware(opts: userOptsType): Promise<Plugin> {
   let config: ResolvedConfig;
@@ -23,10 +23,10 @@ async function VitePluginProxyMiddleware(opts: userOptsType): Promise<Plugin> {
   let vitePort: middleWareOptsType["vitePort"];
   let proxyTableMap: Record<"string", ProxyOptions>;
 
-  // mock数据地址接口默认值为 "/dev-mock"
+  // defalut mock address： "/dev-mock"
   const { mockPath = "/dev-mock", proxyTable, publicHost } = opts;
 
-  // 配置proxyTable地址或者指定一个对象
+  // proxyTable setting
   if (typeof proxyTable === "string") proxyTableMap = await import(proxyTable);
   else if (typeof proxyTable === "object") proxyTableMap = proxyTable;
   else
@@ -37,24 +37,22 @@ async function VitePluginProxyMiddleware(opts: userOptsType): Promise<Plugin> {
   return {
     name: "vite-plugin-proxy-middleware",
     configResolved(resolvedConfig) {
-      // 存储最终解释配置
       config = resolvedConfig;
-      // 协议
       viteProtocol = config.server.https ? "https" : "http";
-      // 端口
       vitePort = config.server.port;
     },
     configureServer({ middlewares }) {
       setTimeout(() => {
-        console.log(
-          chalk.cyan.bold(
-            "  > 建议公共域名访问：" +
-              `${viteProtocol}://${publicHost}:${vitePort}/  `
-          )
-        );
+        publicHost &&
+          console.log(
+            chalk.cyan.bold(
+              "  > Here is your public host：" +
+                `${viteProtocol}://${publicHost}:${vitePort}/  `
+            )
+          );
         console.log(
           chalk.yellow.bold(
-            `  > 目前服务环境为：` + `${process.env.connect}\n\n`
+            `  > current serving environment：` + `${process.env.connect}\n\n`
           )
         );
       }, 1000);

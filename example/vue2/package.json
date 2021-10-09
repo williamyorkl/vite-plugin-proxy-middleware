@@ -1,7 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env connect=dev vite",
+    "dev:test": "cross-env connect=test vite",
+    "dev:gray": "cross-env connect=gray vite",
+    "dev:prod": "cross-env connect=prod vite",
     "build": "vite build"
   },
   "devDependencies": {

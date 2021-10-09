@@ -17,7 +17,7 @@ export default {
       },
     }),
     typescript({
-      typescript: require("typescript"),
+      tsconfig: "./tsconfig.json",
       tsconfigOverride: {
         compilerOptions: { module: "esnext" },
       },
