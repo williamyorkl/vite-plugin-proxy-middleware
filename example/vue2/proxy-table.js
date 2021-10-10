@@ -30,7 +30,7 @@ const stageProxyTable = {
 };
 
 /** 总代理表 */
-export default {
+module.exports = {
   // 1. 不同测试环境代理表
   ...stageProxyTable[process.env.connect],
 

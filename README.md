@@ -78,6 +78,12 @@ export default {
 
 > What's more important, please generate a SSL certificate to ensure that your `https` protocols works locally, only if your `https` works, so that you can use http2
 
+How to generate a local SSL certificate：
+
+1. https://github.com/FiloSottile/mkcert
+
+2. https://www.jianshu.com/p/7cb5c2cffaaa
+
 #### 5. Some the other options for reference
 
 ```ts

@@ -2,6 +2,7 @@ import proxy from "http2-proxy";
 import { proxyTableType } from "./index";
 
 import { Connect } from "vite";
+import * as http from "http";
 
 export interface middleWareOptsType {
   viteProtocol: number | string;
@@ -48,7 +49,11 @@ export function generateMiddlewareProxyTable({
     });
   }
 
-  return (req, res, next) => {
+  return (
+    req: Connect.IncomingMessage,
+    res: http.ServerResponse,
+    next: Connect.NextFunction
+  ) => {
     /**
      * 拦截请求
      *  1. mock接口请求 代理 --> 本地vite服务

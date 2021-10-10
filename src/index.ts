@@ -17,7 +17,7 @@ interface userOptsType {
 
 export type proxyTableType = Record<"string", ProxyOptions> | string;
 
-async function VitePluginProxyMiddleware(opts: userOptsType): Promise<Plugin> {
+function VitePluginProxyMiddleware(opts: userOptsType): Plugin {
   let config: ResolvedConfig;
   let viteProtocol: middleWareOptsType["viteProtocol"];
   let vitePort: middleWareOptsType["vitePort"];
@@ -27,7 +27,7 @@ async function VitePluginProxyMiddleware(opts: userOptsType): Promise<Plugin> {
   const { mockPath = "/dev-mock", proxyTable, publicHost } = opts;
 
   // proxyTable setting
-  if (typeof proxyTable === "string") proxyTableMap = await import(proxyTable);
+  if (typeof proxyTable === "string") proxyTableMap = require(proxyTable);
   else if (typeof proxyTable === "object") proxyTableMap = proxyTable;
   else
     throw new Error(
