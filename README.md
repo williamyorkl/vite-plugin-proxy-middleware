@@ -2,6 +2,9 @@
 
 a vite plugin that solve the conflict problem between turning on vite proxy and http2, you can use both http2 and proxy at the same time ;-)
 
+Reason for the limitation between `h2` and `proxy` are saying explicitly on Vite's website:
+https://vitejs.dev/config/#server-https
+
 <br/>
 
 ## Usage
@@ -25,18 +28,18 @@ export default {
   plugins: [
     createVuePlugin(),
     VitePluginProxyMiddleware({
-      proxyTable: path.resolve("./proxy-table"),
+      proxyTable: path.resolve(__dirname, "./proxy-table"),
     }),
   ],
   server: {
-    /* https option must be turn on,so that you can use h2 */
+    /* https option must be turned on,so that you can use h2 */
     https: {
-      key: xxx,
-      cert: xxx,
+      key: "./cert/xxx.cert",
+      cert: "./cert/xxx.key",
     },
 
-    /* proxy option can be ignored */
-    proxy: xxx,
+    /* vite's original proxy must be ignored,or else it will impact on h2 setting turning on */
+    // proxy: xxx,
   },
 };
 ```
@@ -46,7 +49,7 @@ export default {
 ```js
 // vite proxy table example
 
-export default {
+module.exports = {
   dev: {
     "/admin": {
       target: "http://xxx-dev.com/",

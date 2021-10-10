@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-proxy-middleware",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a  vite plugin that solve the conflict problem between turning on vite proxy  and http2, you can use both http2 and proxy at the same time ;-)",
   "main": "dist/index.js",
   "scripts": {
