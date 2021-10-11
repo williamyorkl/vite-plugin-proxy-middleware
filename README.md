@@ -12,7 +12,7 @@ https://vitejs.dev/config/#server-https
 #### 1. Install
 
 ```bash
-npm i vite-plugin-vue2-suffix -D
+npm i vite-plugin-proxy-middleware -D
 ```
 
 #### 2. Add it to `vite.config.js`
